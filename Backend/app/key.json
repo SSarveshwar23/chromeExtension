@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "celtic-guru-424707-r4",
+    "private_key_id": "485ddb5afb4d5f10e2298326a1e1e762cce7d182",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDhMFX3tjPuveXT\nlfSJzkSzXdNjCdaQYBVffTg9tRoQ7f5CKqW2ffg5wSpUkeC+d7tMSLtRJ3rWJ6cu\nLiHw8OdTSjYjZOVv9CoAIALeWAf6+mYBczMoF4aEQKKJOSRjCS705XmjnDv8YM2O\nQwcIUhOjdj9117i7e7x1AfRjYGQvr7B9QzLlVOow3so4RDM554s2ma3d4AK1xSF6\nZ70TIFcKOeqwgqSqOLKos7FrVW/441T3wK/oH/82BzJ+FtdkE95LT/2o0QZsnKe3\nplh49YgrZLLW8+AVEduaQd6sUoHGpw/U+wNjhAG5SVl9CGVJq4YU4IVl37VF/MDg\n3FaJYLZDAgMBAAECggEAEVOJQcp8m3F0BgAjNRkwUwa0lYmzvx8Nde/qDGFrVIMj\nTY7/eheeKj9xFNm2i6ElwZxVAU0C2AhsBhMZnHLEsbVjjfyc5KzKMIFGBzqJvqdW\nguUMuhh5SqK4fsttP8t8l+4yGkMSoHwIRNpmZ579ENYv0s7a0V4XZX9VgPHxM3Px\nsj+TotGqHPNAO+2Mey1OQDwJbs2soRoeVi9rj6QzhGceo0r5qR4YnxKafS5urFTu\nq0rLZdmeU4lpLt3HL+MdogXQNIzIKQIN+7QmydleHkFU+kq9WZMOTeJ4Fr4gBuAa\nLJ7rMgGgJ0KKlygoM+q7g0FThYNRjDjrdypBA1bwcQKBgQDzot/6gnp4f7tL4ajG\nUfwa/znKMsxT7rPTYjWBvYle/B4FVf9pnziMLrbICyFf0RG/egatdGUTxI4fprii\no1jyhsIhS6yf90BOpWaIVfPlhIfyLxhCT6ibp5Mlk/Izt4/xbd1Fkf+hJFACpak0\nialcFtiBSy7Nyp4oFbCYmc3fMQKBgQDsnc6TeFanEbUJj88Pwn0fQ5HcxZkUjepE\naF85u2R/Pwr2aoy6CRvvFF0J4OfKdmCmQjpRNkYrLNjpzmjJ4HhwSrZpyU4Yih03\nwQnLuEh8AsF6Ysa+Rbu0NfZVUw294GBzh7ruE+FtgiEFuoXVFXR/ia2b1YBxUPRA\ntL7Vo9RXswKBgQCsRUqiU4hNk+PXr+Qq9uWQIU+3jVu1LV+x5At5hY+QvixsEXbc\nNF1DofRUVqpumeI2xg3asCaYZ68m6jg7p8zJEEhMSrnxEl9CPOnXFQ+0BpYpxOse\nWD0ccs01EPt9XhpF2C1Rd/6M7qQ0eva902kRWIYWRhb+JHrYVR3diUNswQKBgQCG\n0DLO2xWkAva/B+zV8d4QXhNRUlQx3dnIOB9paVeNGIJKe9LKfD4qLdQEuNvYAzJ2\nB+3qL54zI05DiJMz0m1MrYTZKRUR7j9PcPD/3XOPFJLgBD9wUZLszoIXg0alFJ5f\ntMnQtAsQtb/S37849Qx3Th5YV4DjD1jbNSA14S4u+QKBgFWRbm6Kcdlbeg8vF4Ec\nJh8RL2etkScAI7S2lHZrV9xEnMEgKvtixrohnBg6Eo2W3otODRgiJNIIsnx7dt/i\nXcw4IrqZrXAzw1Fl8Fu20ChIWy1deJGy2O79ZkmYpnnD6TIpfCCLXe5xLSMZAzZD\nl0hGLQxaFdAIWbqnCpUuSRaX\n-----END PRIVATE KEY-----\n",
+    "client_email": "umesh-kumar-behera@celtic-guru-424707-r4.iam.gserviceaccount.com",
+    "client_id": "114827800496586903389",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/umesh-kumar-behera%40celtic-guru-424707-r4.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }

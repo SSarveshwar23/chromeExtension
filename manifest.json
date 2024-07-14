@@ -1,0 +1,24 @@
+{
+    "manifest_version": 3,
+    "name": "Side Panel Extension",
+    "version": "1.0",
+    "description": "Extension with a default side panel.",
+    
+    "side_panel": {
+      "default_path": "extension/stream_notes.html"
+    },
+    "permissions": [
+      "sidePanel",
+      "tabs"
+    ],
+    "host_permissions": [
+      "https://www.youtube.com/*"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["https://www.youtube.com/*"],
+        "js": ["extension/scripts/main.js"]
+      }
+    ]
+  }
+  
