@@ -4,6 +4,7 @@ from ..services.extract_audio import download_youtube_audio
 from ..services.api_call import transcribe_audio
 from ..services.spell_corrector import spell_corrector
 from ..services.pdf_converter import text_to_pdf
+from ..services.summarize import summarize
 
 main_bp = Blueprint('main', __name__)
 
@@ -42,5 +43,14 @@ def extract_audio():
 @main_bp.route('/download/<path:filename>')
 def download_file(filename):
     return send_file(filename, as_attachment=True)
+
+@main_bp.route('/summarize', methods=['POST'])
+def summarize():
+    text_path = r"C:\Users\ssarv\OneDrive\Desktop\Chrome Extension\Backend\app\services\transcription.txt"
+    with open(text_path,'r') as f:
+        text = f.read()
+    summary=summarize(text)
+    # Perform summarization (this is just a placeholder logic)
+    return jsonify({'summary': summary})
     
 

@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
     function downloadNotes(url) {
+      const button = document.getElementById('download-icon');
+      button.textContent = "Generating notes";
         fetch('http://127.0.0.1:5000/api/extract_audio', {
             method: 'POST',
             headers: {
@@ -71,6 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Example: Construct download URL based on the returned path
                 const downloadUrl = `http://127.0.0.1:5000/download/${encodeURIComponent(data.path)}`;
 
+                setTimeout(() => {
+                  button.textContent = "Downloading....";
+                  
+                  // Step 4: Revert text to "Download Notes" after 3 seconds
+                  setTimeout(() => {
+                      button.textContent = "Dwonloading..";
+                  }, 2000);
+              }, 0);
+
                 // Example: Create an anchor element to trigger download
                 const a = document.createElement('a');
                 a.href = downloadUrl;
@@ -78,6 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('About to click the download link');
                 a.click();
                 console.log('Download link clicked');
+                setTimeout(() => {
+                  button.textContent = "Download complete";
+                  
+                  // Step 4: Revert text to "Download Notes" after 3 seconds
+                  setTimeout(() => {
+                      button.textContent = "Download Notes";
+                  }, 3000);
+              }, 0);
             } else {
                 throw new Error('Path to file not provided');
             }
@@ -91,4 +110,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const urlObj = new URL(url);
         return urlObj.searchParams.get('v') || urlObj.pathname.split('/').pop();
     }
+});
+
+document.getElementById('summarize').addEventListener('click', function() {
+  // Replace with your backend API URL
+  const apiUrl = 'http://127.0.0.1:5000/summarize';
+  
+  // Fetch summary from the backend
+  fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          // Include any necessary data for the summarization API
+          text: 'Your text to be summarized'
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Display the summary in the preview box
+      document.getElementById('preview-box').textContent = data.summary;
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('preview-box').textContent = 'Error retrieving summary.';
+  });
 });
