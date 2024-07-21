@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dropZone = document.getElementById('drop_zone');
   const downloadIcon = document.getElementById('download-icon');
+  const generateButton = document.getElementById('generate-notes');
   const urlInput = document.getElementById('url_input');
+  const buttons = document.querySelectorAll('.button:not(#summarize), .footer-button, .download-icon');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', hidePreviewBox);
+});
 
   dropZone.addEventListener('dragover', (event) => {
     event.preventDefault();
@@ -29,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isValidYouTubeUrl(url)) {
       downloadIcon.style.display = 'inline-block';
       displayThumbnail(url);
-      downloadIcon.onclick = () => downloadNotes(url);
+      generateButton.onclick = () => downloadNotes(url);
     } else {
       alert('Invalid YouTube URL');
       downloadIcon.style.display = 'none';
@@ -52,64 +58,72 @@ document.addEventListener('DOMContentLoaded', () => {
     dropZone.appendChild(img);
   }
 
-    function downloadNotes(url) {
-      const button = document.getElementById('download-icon');
-      button.textContent = "Generating notes";
-        fetch('http://127.0.0.1:5000/api/extract_audio', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ url: url })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); // Receive response as JSON
-        })
-        .then(data => {
-            if (data && data.path) {
-                // Example: Construct download URL based on the returned path
-                const downloadUrl = `http://127.0.0.1:5000/download/${encodeURIComponent(data.path)}`;
+  function downloadNotes(url) {
+    const generateButton = document.getElementById('generate-notes');
+    const downloadButton = document.getElementById('download-icon');
+    const preloader = document.getElementById('loader')
+    preloader.style.display='block'
+    generateButton.textContent = "Generating notes";
+    
+    fetch('http://127.0.0.1:5000/api/extract_audio', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: url })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data && data.path) {
+            // Example: Construct download URL based on the returned path
+            const downloadUrl = `http://127.0.0.1:5000/download/${encodeURIComponent(data.path)}`;
+            preloader.style.display='none'
+            
+            generateButton.innerHTML = `<img src="icons/tick_logo.png" alt="" class="tick_logo">
+            Notes Generated<br>
+            <p class='button-text'><span>(To regenerate notes press again)</span></p>`;
 
-                setTimeout(() => {
-                  button.textContent = "Downloading....";
-                  
-                  // Step 4: Revert text to "Download Notes" after 3 seconds
-                  setTimeout(() => {
-                      button.textContent = "Dwonloading..";
-                  }, 2000);
-              }, 0);
-
+            downloadButton.style.display = "inline-block";
+            
+            downloadButton.addEventListener('click', () => {
+                downloadButton.textContent = "Downloading...";
+                
                 // Example: Create an anchor element to trigger download
                 const a = document.createElement('a');
                 a.href = downloadUrl;
-                a.download = `audio.txt`; // Set desired file name or extract from the path
-                console.log('About to click the download link');
+                a.download = `audio.txt`;
                 a.click();
-                console.log('Download link clicked');
+                
+                downloadButton.textContent = "Download complete";
+                
+                // Revert text to "Download Notes" after 3 seconds
                 setTimeout(() => {
-                  button.textContent = "Download complete";
-                  
-                  // Step 4: Revert text to "Download Notes" after 3 seconds
-                  setTimeout(() => {
-                      button.textContent = "Download Notes";
-                  }, 3000);
-              }, 0);
-            } else {
-                throw new Error('Path to file not provided');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+                    downloadButton.textContent = "Download Notes";
+                }, 3000);
+            });
+        } else {
+            throw new Error('Path to file not provided');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        generateButton.textContent = "Generate Notes";
+    });
+}
 
-    function getVideoId(url) {
-        const urlObj = new URL(url);
-        return urlObj.searchParams.get('v') || urlObj.pathname.split('/').pop();
-    }
+function hidePreviewBox() {
+  document.getElementById('preview-box').style.display = 'none';
+}
+
+function getVideoId(url) {
+    const urlObj = new URL(url);
+    return urlObj.searchParams.get('v') || urlObj.pathname.split('/').pop();
+}
 });
 
 document.getElementById('summarize').addEventListener('click', function() {
@@ -137,3 +151,33 @@ document.getElementById('summarize').addEventListener('click', function() {
       document.getElementById('preview-box').textContent = 'Error retrieving summary.';
   });
 });
+
+document.getElementById('Clear').addEventListener('click', () => {
+  clearFields();
+});
+
+function clearFields() {
+  document.getElementById('url_input').value = '';
+  document.getElementById('drop_zone').innerText = 'Drag & Drop YouTube URL Here';
+}
+
+const pdfFilePath = 'http://127.0.0.1:5000/pdf'; 
+
+    document.getElementById('previewButton').addEventListener('click', function() {
+      document.getElementById('pdfPreview').src = pdfFilePath;
+      document.getElementById('modalOverlay').style.display = 'block';
+      document.getElementById('modalContent').style.display = 'block';
+      document.body.classList.add('modal-open');
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+      document.getElementById('modalOverlay').style.display = 'none';
+      document.getElementById('modalContent').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    });
+
+    document.getElementById('modalOverlay').addEventListener('click', function() {
+      document.getElementById('modalOverlay').style.display = 'none';
+      document.getElementById('modalContent').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    });

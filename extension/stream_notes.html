@@ -4,143 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YouTube Video Notes Generator</title>
-  <style>
-    body {
-      display: flex;
-      flex-direction: row;
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-    }
-    .right-column {
-      flex: 1;
-      padding: 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin: auto;
-      max-width: 500px;
-      border-radius: 10px;
-    }
-    .logo {
-      width: 60px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-    .input-field, .drop-zone, .button {
-      width: 83%;
-      margin-bottom: 20px;
-    }
-    .input-field {
-      padding: 15px;
-      font-size: 18px;
-      border: 2px solid #ccc;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .drop-zone {
-      border: 2px dashed #007BFF;
-      border-radius: 10px;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #007BFF;
-      background-color: #f9f9f9;
-      transition: background-color 0.3s, border-color 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .drop-zone img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .drop-zone.dragover {
-      background-color: #e0f0ff;
-      border-color: #0056b3;
-      color: #0056b3;
-    }
-    .button {
-      padding: 15px;
-      font-size: 18px;
-      cursor: pointer;
-      text-align: center;
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
-    }
-    .button:hover {
-      background-color: #0056b3;
-    }
-    .footer-buttons {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-    }
-    .footer-button {
-      padding: 15px;
-      font-size: 18px;
-      cursor: pointer;
-      text-align: center;
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      width: 48%;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
-    }
-    .footer-button:hover {
-      background-color: #0056b3;
-    }
-    .download-icon {
-      display: inline-block;
-      cursor: pointer;
-      font-size: 20px;
-      color: #007BFF;
-      margin-top: 20px;
-    }
-    .download-icon:hover {
-      text-decoration: underline;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .header h1 {
-      margin-left: 10px;
-      font-size: 36px;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
   <div class="right-column">
     <div class="header">
       <img src="icons/pen_icon.png" class="logo" alt="StreamNotes Logo">
-      <h1>StreamNotes Generator</h1>
+      <h2>StreamNotes Generator</h2>
     </div>
     <input type="text" id="url_input" class="input-field" placeholder="Enter YouTube URL">
     <div id="drop_zone" class="drop-zone">Drag & Drop YouTube URL Here</div>
     <div id="preview-box"></div>
+    <img src="icons/loader.gif" alt="loader" width="70px" height="70px" id="loader">
+    <button class="button" id="generate-notes">Generate Notes</button>
     <button class="button" id="summarize">Summarize</button>
     <div class="footer-buttons">
-      <button class="footer-button">Preview</button>
-      <button class="footer-button">Cancel</button>
+      <button id="previewButton" class="footer-button">Preview PDF</button>
+
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal-content" id="modalContent">
+    <button class="close-button" id="closeButton">Close</button>
+    <iframe id="pdfPreview"></iframe>
+  </div>
+      <button class="footer-button" id="Clear">Clear</button>
     </div>
     <button class="download-icon" id="download-icon" style="display:none;">Download Notes</button>
   </div>
