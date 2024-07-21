@@ -1,0 +1,7 @@
+ Flask
+ yt-dlp
+ pydub
+ google-cloud-speech
+ fpdf
+ python-dotenv
+ google-generativeai
