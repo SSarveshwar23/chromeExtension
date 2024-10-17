@@ -50,15 +50,21 @@ def download_file(filename):
 
 @main_bp.route('/summarize', methods=['POST'])
 def summarize_txt():
-    
-    text_path = os.path.join(parent_dir, 'static', 'transcription.txt')
-    text_path = text_path.replace("\\","/")
-    print(text_path)
-    with open(text_path,'r') as f:
-        text = f.read()
-    summary=summarize(text)
-    # Perform summarization (this is just a placeholder logic)
-    return jsonify({'summary': summary})
+    try:
+        text_path = os.path.join(parent_dir, 'static', 'transcription.txt')
+        text_path = text_path.replace("\\", "/")
+        print(text_path)
+        
+        with open(text_path, 'r') as f:
+            text = f.read()
+        
+        summary = summarize(text)
+        print("Got the summary:", summary)
+        
+        return jsonify({'summary': summary}), 200  # Explicitly set status code to 200
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({'error': str(e)}), 500
 
 @main_bp.route('/pdf')    
 def serve_pdf():

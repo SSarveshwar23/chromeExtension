@@ -22,7 +22,7 @@ def summarize(text):
         
         # Extract the generated text from the response
         generated_text = response.text
-
+        print(generated_text)
         return generated_text
     except Exception as e:
         # Handle errors by returning an appropriate message or the feedback prompt

@@ -126,31 +126,42 @@ function getVideoId(url) {
 }
 });
 
-document.getElementById('summarize').addEventListener('click', function() {
-  // Replace with your backend API URL
-  const apiUrl = 'http://127.0.0.1:5000/summarize';
+
+  document.getElementById('summarize').addEventListener('click', function() {
+    // Replace with your backend API URL
+    const apiUrl = 'http://127.0.0.1:5000/summarize';
   
-  // Fetch summary from the backend
-  fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          // Include any necessary data for the summarization API
-          text: 'Your text to be summarized'
-      })
-  })
-  .then(response => response.json())
-  .then(data => {
-      // Display the summary in the preview box
-      document.getElementById('preview-box').textContent = data.summary;
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      document.getElementById('preview-box').textContent = 'Error retrieving summary.';
+    // Fetch summary from the backend
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            // Include any necessary data for the summarization API
+            text: 'Your text to be summarized'
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(errorData.error || 'Network response was not ok');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Display the summary in the preview box
+        document.getElementById('preview-box').style.display='block'
+        document.getElementById('preview-box').textContent = data.summary;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('preview-box').textContent = 'Error retrieving summary: ' + error.message;
+    });
   });
-});
+  
+
 
 document.getElementById('Clear').addEventListener('click', () => {
   clearFields();
